@@ -11,7 +11,9 @@ def get_ip_address(ifname):
         struct.pack('256s', ifname[:15])
     )[20:24])
 
-internal_IPAddress = get_ip_address('eth0')  # should return something like '192.168.0.110'
+internalIPAddress = get_ip_address('eth0')  # should return something like '192.168.0.110'
+#print ('The internal IP address is: ' + internalIPAddress)
+
 
 #Ask the important questions, and then create the XML File
 from lxml import etree as ET
@@ -19,12 +21,16 @@ from lxml import etree as ET
 storeCode = raw_input('Enter the store code: ')
 #print (storeCode)
 
+tillNumber = raw_input('Enter the till number: ')
+#print (tillNumber)
+
 #Write the results to an XML file
 root = ET.Element("root")
 doc = ET.SubElement(root, "doc")
 
 ET.SubElement(doc, "field1", name="storeCode").text = storeCode
-ET.SubElement(doc, "field2", name="asdfasd").text = "some vlaue2"
+ET.SubElement(doc, "field2", name="tillNumber").text = tillNumber
+ET.SubElement(doc, "field3", name="internalIPAddress").text = internalIPAddress
 
 tree = ET.ElementTree(root)
 tree.write("filename.xml", pretty_print=True)
