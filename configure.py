@@ -1,12 +1,12 @@
-import os
+import os, subprocess
+
+#Ask the important questions, and then create the XML File
 from lxml import etree as ET
 
 storeCode = raw_input('Enter the store code: ')
 #print (storeCode)
 
-
 #Write the results to an XML file
-
 root = ET.Element("root")
 doc = ET.SubElement(root, "doc")
 
@@ -15,3 +15,7 @@ ET.SubElement(doc, "field2", name="asdfasd").text = "some vlaue2"
 
 tree = ET.ElementTree(root)
 tree.write("filename.xml", pretty_print=True)
+
+#Prepare the system to run till2
+print ('SAY YES')
+subprocess.call(['./Till2.sh'])
