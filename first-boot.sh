@@ -1,4 +1,4 @@
-!#/bin/sh
+#!/bin/sh
 
 # This file is typically called from the first-boot.py file
 
