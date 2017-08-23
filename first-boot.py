@@ -19,4 +19,4 @@ def inplace_change(filename, old_string, new_string):
 inplace_change('/etc/default/keyboard','gb','us')
 
 #Call the first boot shell script
-subprocess.call(['./first-boot.sh'])
+subprocess.call(['home/pi/as/first-boot.sh'])
