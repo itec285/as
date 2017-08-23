@@ -1,3 +1,6 @@
+import subprocess
+
+#Make sure that the till session is in the auto start.  This will only add it if not already there.
 searchstring = "@/home/pi/as/Till2.sh"
 with open("/home/pi/.config/lxsession/LXDE-pi/autostart", "r+") as file:
     for line in file:
