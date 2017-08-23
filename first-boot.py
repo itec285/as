@@ -1,3 +1,6 @@
+import os, subprocess
+
+#Define a function to change part of a file
 def inplace_change(filename, old_string, new_string):
     # Safely read the input filename using 'with'
     with open(filename) as f:
@@ -12,4 +15,8 @@ def inplace_change(filename, old_string, new_string):
         s = s.replace(old_string, new_string)
         f.write(s)
 
+#Use the inplace change function to replace British (GB) keymapping with US Keyboard
 inplace_change('/etc/default/keyboard','gb','us')
+
+#Call the first boot shell script
+subprocess.call(['./first-boot.sh'])
