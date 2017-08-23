@@ -9,5 +9,5 @@ with open("/home/pi/.config/lxsession/LXDE-pi/autostart", "r+") as file:
     else: # not found, we are at the eof
         file.write(searchstring + '\n') # append missing data
         
-#Call the script that will copy the wallpaper
-subprocess.call(['./first-boot.sh'])
+##Call the script that will copy the wallpaper
+#subprocess.call(['./first-boot.sh'])
