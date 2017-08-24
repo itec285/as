@@ -1,4 +1,8 @@
 #! /bin/sh
+
+#This is for showing a customized splash screen at boot.  See http://www.raspberry-projects.com/pi/pi-operating-systems/raspbian/custom-boot-up-screen
+#Requires the fbi package
+
 ### BEGIN INIT INFO
 # Provides:          asplashscreen
 # Required-Start:
