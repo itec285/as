@@ -7,8 +7,11 @@ echo "First Boot" >> /home/pi/bootlog.txt
 #Move Desktop wallpaper in.  This is a bit of a hack right now, as we are just moving ours to the default name.
 cp /home/pi/as/road.jpg /usr/share/rpd-wallpaper/
 
-#Change the splash screen to ours
-cp /home/pi/as/splash.png /etc/splash.png
-cp /home/pi/as/asplashscreen /etc/init.d/asplashscreen
-chmod a+x /etc/init.d/asplashscreen
-insserv /etc/init.d/asplashscreen
+##Change the splash screen to ours - Old way with big screen, no longer used.
+#cp /home/pi/as/splash-big.png /etc/splash-big.png
+#cp /home/pi/as/asplashscreen /etc/init.d/asplashscreen
+#chmod a+x /etc/init.d/asplashscreen
+#insserv /etc/init.d/asplashscreen
+
+#New way of changing the (smaller) splash screen at bootup
+cp /home/pi/as/splash.png /usr/share/plymouth/themes/pix/splash.png
