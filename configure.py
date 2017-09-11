@@ -3,7 +3,9 @@ import os, subprocess, json, urllib
 #For getting our IP address - requests is external, everything else is internal
 import socket, fcntl, struct, requests
 
-serviceurl = 'http://localhost:5000/starplus/api/v1.0/rdplogin/'
+#Define the base address of the RDP information / registration web service
+#serviceurl = 'http://localhost:5000/starplus/api/v1.0/rdplogin/'
+serviceurl = 'http://159.203.41.250:5000/starplus/api/v1.0/rdplogin/'
 
 def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
