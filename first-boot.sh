@@ -18,3 +18,6 @@ cp /home/pi/as/splash.png /usr/share/plymouth/themes/pix/splash.png
 
 #Add the setup script to the home directory
 cp /home/pi/as/setup.py /home/pi/setup.py
+
+#Create a symbolic link from /usr/bin/setup to /home/pi/setup.py.  This will make it so users can type just 'setup' later.
+ln -s /home/pi/setup.py /usr/bin/setup
