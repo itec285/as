@@ -106,8 +106,4 @@ tree = ET.ElementTree(root)
 tree.write("configuration.xml", pretty_print=True)
 
 create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword)
-make_executable(login.sh)
-
-#Prepare the system to run till2
-#print ('SAY YES')
-#subprocess.call(['./Till2.sh'])
+make_executable('login.sh')
