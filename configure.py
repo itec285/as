@@ -1,3 +1,5 @@
+#DEPRECATED.  USE SETUP.PY INSTEAD
+
 import os, subprocess, json, urllib
 
 #For getting our IP address - requests is external, everything else is internal
