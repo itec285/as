@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os, subprocess
 
 #Define a function to change part of a file

@@ -15,3 +15,6 @@ cp /home/pi/as/road.jpg /usr/share/rpd-wallpaper/
 
 #New way of changing the (smaller) splash screen at bootup
 cp /home/pi/as/splash.png /usr/share/plymouth/themes/pix/splash.png
+
+#Add the setup script to the home directory
+cp /home/pi/as/setup.py /home/pi/setup.py

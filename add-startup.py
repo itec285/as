@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import subprocess
 
 #Make sure that the till session is in the auto start.  This will only add it if not already there.
