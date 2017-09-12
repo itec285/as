@@ -43,8 +43,8 @@ def get_RDP_data(storeCode, authCode, tillNumber):
 
 def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
 	f = open("login.sh",w)
-	f.write("#!/bin/sh")
-	f.write("xfreerdp /v:", RDPAddress, " /u:", RDPLogin, " /p:", RDPPassword)
+	f.write('#!/bin/sh' + '\n')
+	f.write('xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + '\n')
 	f.close()
 
 internalIPAddress = get_ip_address('eth0')  # should return something like '192.168.0.110'
