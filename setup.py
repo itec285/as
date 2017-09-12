@@ -44,8 +44,16 @@ def get_RDP_data(storeCode, authCode, tillNumber):
 def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
 	f = open("login.sh","w")
 	f.write('#!/bin/sh' + '\n')
-	f.write('xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + '\n')
+	#In the xfreerdp line below, the /f forces fullscreen and will 'lock-down' the pi desktop from casual users (not experts).
+	#  Also, note that the /cert-ignore is a temporary hack for demo purposes.  This should note be done in production.  Instead,
+	#  get a real, signed certificate for the RDP Server (also note that this likely is in fact required for PCI)
+	f.write('xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f'+'\n')
 	f.close()
+
+def make_executable(path):
+    mode = os.stat(path).st_mode
+    mode |= (mode & 0o444) >> 2    # copy R bits to X
+    os.chmod(path, mode)
 
 internalIPAddress = get_ip_address('eth0')  # should return something like '192.168.0.110'
 #print ('The internal IP address is: ' + internalIPAddress)
@@ -98,6 +106,7 @@ tree = ET.ElementTree(root)
 tree.write("configuration.xml", pretty_print=True)
 
 create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword)
+make_executable(login.sh)
 
 #Prepare the system to run till2
 #print ('SAY YES')
