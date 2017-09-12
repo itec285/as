@@ -42,7 +42,7 @@ def get_RDP_data(storeCode, authCode, tillNumber):
 	return (RDPData)
 
 def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
-	f = open("login.sh",w)
+	f = open("login.sh","w")
 	f.write('#!/bin/sh' + '\n')
 	f.write('xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + '\n')
 	f.close()
