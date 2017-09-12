@@ -38,4 +38,6 @@ api.add_resource(RDP_Login, '/starplus/api/v1.0/rdplogin/<string:store_code>/<st
 api.add_resource(StoreCodes_Meta, '/starplus/api/v1.0/storecodes')
 
 if __name__ == '__main__':
-	app.run()
+#	app.run()
+# Do the below to allow from external hosts (dangerous)
+	app.run(host='0.0.0.0')
