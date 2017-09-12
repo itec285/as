@@ -41,6 +41,12 @@ def get_RDP_data(storeCode, authCode, tillNumber):
 	
 	return (RDPData)
 
+def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
+	f = open("login.sh",w)
+	f.write("#!/bin/sh")
+	f.write("xfreerdp /v:", RDPAddress, " /u:", RDPLogin, " /p:", RDPPassword)
+	f.close()
+
 internalIPAddress = get_ip_address('eth0')  # should return something like '192.168.0.110'
 #print ('The internal IP address is: ' + internalIPAddress)
 
@@ -91,6 +97,8 @@ ET.SubElement(doc, "field9", name="RDPPassword").text = RDPPassword
 tree = ET.ElementTree(root)
 tree.write("configuration.xml", pretty_print=True)
 
+create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword)
+
 #Prepare the system to run till2
-print ('SAY YES')
-subprocess.call(['./Till2.sh'])
+#print ('SAY YES')
+#subprocess.call(['./Till2.sh'])
