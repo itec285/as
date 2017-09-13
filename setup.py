@@ -72,7 +72,10 @@ tillNumber = raw_input('Enter the till number: ')
 #print (tillNumber)
 
 #Get a dictionary of our RDP server address, port, login, and password given our storecode, authorization number (secret), and tillNumber
-RDPData = get_RDP_data(storeCode, authCode, tillNumber)
+try:
+	RDPData = get_RDP_data(storeCode, authCode, tillNumber)
+except IOError as e:
+	print ("I/O error({0}):{1}".format(e.errno, e.strerror))
 
 #Below lines are for debugging only.
 #print ('RDP Address is:',RDPData[0]['RDPAddress'])
@@ -80,10 +83,14 @@ RDPData = get_RDP_data(storeCode, authCode, tillNumber)
 #print ('RDP Login is:',RDPData[0]['RDPLogin'])
 #print ('RDP Password is:',RDPData[0]['RDPPassword'])
 
-RDPAddress = RDPData[0]['RDPAddress']
-RDPPort = str(RDPData[0]['RDPPort'])
-RDPLogin = RDPData[0]['RDPLogin']
-RDPPassword = RDPData[0]['RDPPassword']
+try:
+	RDPAddress = RDPData[0]['RDPAddress']
+	RDPPort = str(RDPData[0]['RDPPort'])
+	RDPLogin = RDPData[0]['RDPLogin']
+	RDPPassword = RDPData[0]['RDPPassword']
+except NameError:
+	print ('RDP Information could not be retrieved at this time.  Please try again later.')
+	RDPAddress = RDPPort = RDPLogin = RDPPassword = 'NOT AVAILABLE'
 
 #Write the results to an XML file
 #Import the needed module
