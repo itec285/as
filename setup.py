@@ -49,9 +49,9 @@ def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
 	#In the xfreerdp line below, the /f forces fullscreen and will 'lock-down' the pi desktop from casual users (not experts).
 	#  Also, note that the /cert-ignore is a temporary hack for demo purposes.  This should note be done in production.  Instead,
 	#  get a real, signed certificate for the RDP Server (also note that this likely is in fact required for PCI)
-	f.write('    xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f' + ' || echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
+	f.write('    ' + 'xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f' + ' || echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
 	f.write('else' + '\n')
-	f.write('echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
+	f.write('    ' + 'echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
 	f.write('fi' + '\n')
 	f.close()
 
