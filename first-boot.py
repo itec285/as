@@ -36,4 +36,4 @@ create_login_file(loginFile)
 make_executable(loginFile)
 
 #Call the first boot shell script
-subprocess.call(['home/pi/as/first-boot.sh'])
+subprocess.call(['/home/pi/as/first-boot.sh'])
