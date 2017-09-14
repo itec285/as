@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-import subprocess
+import subprocess, os
+
+configFile='/home/pi/configuration.xml'
 
 #Make sure that the till session is in the auto start.  This will only add it if not already there.
 searchstring = "@/home/pi/login.sh"
@@ -9,6 +11,13 @@ with open("/home/pi/.config/lxsession/LXDE-pi/autostart", "r+") as file:
            break
     else: # not found, we are at the eof
         file.write(searchstring + '\n') # append missing data
+
+try:
+    file = open(configFile, 'r')
+except IOError:
+    subprocess.call(['lxterminal --command setup'])
+    sys.exit()
+    except SystemExit:
         
 ##Call the script that will copy the wallpaper
 #subprocess.call(['./first-boot.sh'])
