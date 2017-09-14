@@ -11,9 +11,3 @@ with open("/home/pi/.config/lxsession/LXDE-pi/autostart", "r+") as file:
            break
     else: # not found, we are at the eof
         file.write(searchstring + '\n') # append missing data
-
-try:
-    file = open(configFile, 'r')
-except IOError:
-    subprocess.call(["lxterminal", "--command=/home/pi/setup.py"])
-    #sys.exit()
