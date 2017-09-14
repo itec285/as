@@ -16,7 +16,7 @@ def inplace_change(filename, old_string, new_string):
         s = s.replace(old_string, new_string)
         f.write(s)
 
-def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
+def create_login_file:
 	f = open("/home/pi/login.sh","w")
 	f.write('#!/bin/sh' + '\n')
 	f.write('lxterminal --command=setup' + '\n')
@@ -25,7 +25,7 @@ def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
 #Use the inplace change function to replace British (GB) keymapping with US Keyboard
 inplace_change('/etc/default/keyboard','gb','us')
 
-create_login_file
+create_login_file()
 
 #Call the first boot shell script
 subprocess.call(['home/pi/as/first-boot.sh'])
