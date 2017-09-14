@@ -44,10 +44,11 @@ def get_RDP_data(storeCode, authCode, tillNumber):
 def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
 	f = open("login.sh","w")
 	f.write('#!/bin/sh' + '\n')
+	f.write('sleep 2' + '\n')
 	#In the xfreerdp line below, the /f forces fullscreen and will 'lock-down' the pi desktop from casual users (not experts).
 	#  Also, note that the /cert-ignore is a temporary hack for demo purposes.  This should note be done in production.  Instead,
 	#  get a real, signed certificate for the RDP Server (also note that this likely is in fact required for PCI)
-	f.write('xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f'+'\n')
+	f.write('xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f' + ' || echo "$(date) : Failed to login to RDP Server" >> errorlog.txt" +'\n')
 	f.close()
 
 def make_executable(path):
