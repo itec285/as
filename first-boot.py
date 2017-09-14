@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os, subprocess
 
+autostartFile='/etc/xdg/lxsession/LXDE-pi/autostart'
 loginFile='/home/pi/login.sh'
 
 #Define a function to change part of a file
@@ -31,6 +32,15 @@ def make_executable(path):
         
 #Use the inplace change function to replace British (GB) keymapping with US Keyboard
 inplace_change('/etc/default/keyboard','gb','us')
+
+#Make sure that the initial startup login.sh is in the auto start.  This will only add it if not already there.
+searchstring = "@/home/pi/login.sh"
+with open(autostartFile, "r+") as file:
+    for line in file:
+        if searchstring in line:
+           break
+    else: # not found, we are at the eof
+        file.write(searchstring + '\n') # append missing data
 
 create_login_file(loginFile)
 make_executable(loginFile)
