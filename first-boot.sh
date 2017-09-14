@@ -21,3 +21,6 @@ cp /home/pi/as/setup.py /home/pi/setup.py
 
 #Create a symbolic link from /usr/bin/setup to /home/pi/setup.py.  This will make it so users can type just 'setup' later.
 ln -s /home/pi/setup.py /usr/bin/setup
+
+#Change the ownership of /home/pi/login.sh to pi:pi
+chown pi:pi /home/pi/login.sh
