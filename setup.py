@@ -51,7 +51,8 @@ def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
 	#  get a real, signed certificate for the RDP Server (also note that this likely is in fact required for PCI)
 	f.write('    ' + 'xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f' + ' || echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
 	f.write('else' + '\n')
-	f.write('    ' + 'echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
+	f.write('    ' + 'echo "$(date) : No configuration.xml file found.  Running setup." >> errorlog.txt' +'\n')
+	f.write('    ' + 'lxterminal --command setup' +'\n')
 	f.write('fi' + '\n')
 	f.close()
 
