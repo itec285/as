@@ -120,3 +120,8 @@ tree.write("configuration.xml", pretty_print=True)
 
 create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword)
 make_executable('login.sh')
+print('\n\n\n\n')
+
+print('SETUP COMPLETE')
+raw_input("Press Enter to continue and reboot...")
+subprocess.call(['sudo', 'init', '6'])
