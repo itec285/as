@@ -44,16 +44,19 @@ def get_RDP_data(storeCode, authCode, tillNumber):
 def create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword):
 	f = open("login.sh","w")
 	f.write('#!/bin/sh' + '\n')
-	f.write('sleep 2' + '\n')
-	f.write('if [ -f configuration.xml ]; then' + '\n')
+	f.write('while true' + '\n')
+	f.write('do' + '\n')
+	f.write('    ' + 'sleep 1' + '\n')
+	f.write('    ' + 'if [ -f configuration.xml ]; then' + '\n')
 	#In the xfreerdp line below, the /f forces fullscreen and will 'lock-down' the pi desktop from casual users (not experts).
 	#  Also, note that the /cert-ignore is a temporary hack for demo purposes.  This should note be done in production.  Instead,
 	#  get a real, signed certificate for the RDP Server (also note that this likely is in fact required for PCI)
-	f.write('    ' + 'xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f' + ' || echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
-	f.write('else' + '\n')
-	f.write('    ' + 'echo "$(date) : No configuration.xml file found.  Running setup." >> errorlog.txt' +'\n')
-	f.write('    ' + 'lxterminal --command setup' +'\n')
-	f.write('fi' + '\n')
+	f.write('    ' + '    ' + 'xfreerdp /v:' + RDPAddress + ' /u:' + RDPLogin + ' /p:' + RDPPassword + ' /cert-ignore' + ' /f' + ' || echo "$(date) : Failed to login to RDP Server" >> errorlog.txt' +'\n')
+	f.write('    ' + 'else' + '\n')
+	f.write('    ' + '    ' + 'echo "$(date) : No configuration.xml file found.  Running setup." >> errorlog.txt' +'\n')
+	f.write('    ' + '    ' + 'lxterminal --command setup' +'\n')
+	f.write('    ' + 'fi' + '\n')
+	f.write('done' + '\n')
 	f.close()
 
 def make_executable(path):
@@ -82,6 +85,8 @@ try:
 	RDPData = get_RDP_data(storeCode, authCode, tillNumber)
 except IOError as e:
 	print ("I/O error({0}):{1}".format(e.errno, e.strerror))
+	print('SETUP FAILED - COULD NOT CONTACT REGISTRATION SERVICE')
+	raw_input("Press Enter to continue..")
 
 #Below lines are for debugging only.
 #print ('RDP Address is:',RDPData[0]['RDPAddress'])
