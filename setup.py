@@ -7,7 +7,8 @@ import socket, fcntl, struct, requests
 
 #Define the base address of the RDP information / registration web service
 #serviceurl = 'http://localhost:5000/starplus/api/v1.0/rdplogin/'
-serviceurl = 'http://159.203.41.250:5000/starplus/api/v1.0/rdplogin/'
+#serviceurl = 'http://159.203.41.250:5000/starplus/api/v1.0/rdplogin/'
+serviceurl = 'https://www.asregister.tk/starplus/api/v1.0/'
 
 def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -17,9 +18,17 @@ def get_ip_address(ifname):
         struct.pack('256s', ifname[:15])
     )[20:24])
 
+def register(storeCode, tillNumber, externalIPAddress, internalIPAddress):
+	url = serviceurl + 'register/' + storeCode + '/' + tillNumber + '/' + externalIPAddress + '/' + internalIPAddress
+	print ('Retrieving',url)
+	uh = urllib.urlopen(url)
+	data = uh.read()
+	try: js = json.loads(str(data))
+	except: js = None
+	RegisterData= js['data']
 
 def get_RDP_data(storeCode, authCode, tillNumber):
-	url = serviceurl + storeCode + '/' + authCode + '/' + tillNumber
+	url = serviceurl + 'rdplogin/' + storeCode + '/' + authCode + '/' + tillNumber
 	#print ('Retrieving',url)
 	uh = urllib.urlopen(url)
 	data = uh.read()
@@ -79,6 +88,14 @@ authCode = raw_input('Enter your authorization number: ')
 
 tillNumber = raw_input('Enter the till number: ')
 #print (tillNumber)
+
+#Register this system.
+try:
+	register(storeCode, tillNumber, externalIPAddress, internalIPAddress)
+except IOError as e:
+	print ("I/O error({0}):{1}".format(e.errno, e.strerror))
+	print('SETUP FAILED - COULD NOT CONTACT REGISTRATION SERVICE')
+	raw_input("Press Enter to continue..")
 
 #Get a dictionary of our RDP server address, port, login, and password given our storecode, authorization number (secret), and tillNumber
 try:
