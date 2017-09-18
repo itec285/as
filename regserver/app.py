@@ -1,5 +1,8 @@
 #!rest-api/bin/python
 
+#I used a number of useful reference tutorials online.  For reference see notes and examples at:
+#       https://impythonist.wordpress.com/2015/07/12/build-an-api-under-30-lines-of-code-with-python-and-flask/
+#       https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
 
 from flask import Flask, request, jsonify#, HTTPBasicAuth
 from flask_restful import Resource, Api
