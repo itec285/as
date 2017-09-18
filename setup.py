@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, subprocess, json, urllib
+import os, subprocess, json, urllib, sys
 
 #For getting our IP address - requests is external, everything else is internal
 import socket, fcntl, struct, requests
@@ -25,7 +25,19 @@ def register(storeCode, tillNumber, externalIPAddress, internalIPAddress):
 	data = uh.read()
 	try: js = json.loads(str(data))
 	except: js = None
-	RegisterData= js['data']
+	
+	#Debugging lines
+	#print(js)
+	#print(js['data'])
+	
+	try:
+		RegisterData= js['data']
+	except TypeError as e:
+			#print ('Type error - No or invalid data returned from server:' + str(e))  #use for additional debugging
+			print ('Type error - No or invalid data returned from server.')
+			print('SETUP FAILED - COULD NOT REGISTER SYSTEM')
+			raw_input("Press Enter to continue..")
+			sys.exit(1)
 
 def get_RDP_data(storeCode, authCode, tillNumber):
 	url = serviceurl + 'rdplogin/' + storeCode + '/' + authCode + '/' + tillNumber
@@ -94,16 +106,23 @@ try:
 	register(storeCode, tillNumber, externalIPAddress, internalIPAddress)
 except IOError as e:
 	print ("I/O error({0}):{1}".format(e.errno, e.strerror))
-	print('SETUP FAILED - COULD NOT CONTACT REGISTRATION SERVICE')
+	print('SETUP FAILED - COULD NOT OBTAIN RDP INFORMATION')
 	raw_input("Press Enter to continue..")
+	sys.exit(1)
 
 #Get a dictionary of our RDP server address, port, login, and password given our storecode, authorization number (secret), and tillNumber
 try:
 	RDPData = get_RDP_data(storeCode, authCode, tillNumber)
 except IOError as e:
 	print ("I/O error({0}):{1}".format(e.errno, e.strerror))
-	print('SETUP FAILED - COULD NOT CONTACT REGISTRATION SERVICE')
+	print('SETUP FAILED - COULD NOT OBTAIN RDP INFORMATION')
 	raw_input("Press Enter to continue..")
+	sys.exit(1)
+except TypeError as e:
+	print ("Type error - No or invalid data returned from server.")
+	print('SETUP FAILED - COULD NOT OBTAIN RDP INFORMATION')
+	raw_input("Press Enter to continue..")
+	sys.exit(1)
 
 #Below lines are for debugging only.
 #print ('RDP Address is:',RDPData[0]['RDPAddress'])
@@ -116,9 +135,10 @@ try:
 	RDPPort = str(RDPData[0]['RDPPort'])
 	RDPLogin = RDPData[0]['RDPLogin']
 	RDPPassword = RDPData[0]['RDPPassword']
-except NameError:
-	print ('RDP Information could not be retrieved at this time.  Please try again later.')
+except Exception, e:
+	print ('SETUP FAILED - INVALID RDP INFORMATION RETURNED:' + str(e))
 	RDPAddress = RDPPort = RDPLogin = RDPPassword = 'NOT AVAILABLE'
+	sys.exit(1)
 
 #Write the results to an XML file
 #Import the needed module
@@ -144,6 +164,6 @@ create_login_file(RDPAddress, RDPPort, RDPLogin, RDPPassword)
 make_executable('login.sh')
 print('\n\n\n\n')
 
-print('SETUP COMPLETE')
+print('SETUP COMPLETED SUCCESSFULLY')
 raw_input("Press Enter to continue and reboot...")
 subprocess.call(['sudo', 'init', '6'])
